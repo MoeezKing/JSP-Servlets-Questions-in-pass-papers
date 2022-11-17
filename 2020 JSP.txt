@@ -1,0 +1,44 @@
+<%@ page import="java.sql.DriverManager" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="java.sql.ResultSet" %>
+
+<%
+String driver ="com.mysql.jdbc.Driver";
+String connURL="jdbc:mysql://localhost:3306/";
+String database="Database";
+String userId-"root";
+String password="";
+
+try{
+Class.forName(driver);
+}catch(ClassNotFoundException e)
+{ e.printStackTrace(); }
+
+Connection conn=null;
+Statement statement=null;
+ResultSet resultset=null;
+
+%>
+<html>
+<body>
+<ul>
+<%
+conn=DriverManager.getConnection(connURL+database,userId,password);
+statement=conn.createStatement();
+String sql=" select hospital_name,hospital_location,ward_incharge from CORONA";
+resultset=statement.executeQuery(sql);
+
+while(resultset.next())
+{
+%>
+<li><%= resultset.getString("hospital_name") %></li>
+<%
+}
+conn.close();
+}catch(Exception e)
+{ e.printStackTrace(); }
+%>
+</ul>
+</body>
+</html>

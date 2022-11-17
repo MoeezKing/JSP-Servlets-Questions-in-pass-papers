@@ -1,0 +1,52 @@
+<%@ page import="java.sql.DriverManager"%>
+<%@ page import="java.sql.Connection"%>
+<%@ page import="java.sql.Statement"%>
+<%@ page import="java.sql.ResultSet"%>
+<%
+
+String Driver="com.mysql.jdbc.Driver";
+String connURL="jdbc:mysql://localhost:3306/";
+String database="Database";
+String userId="root";
+String password="";
+
+try{
+Class.forName(driver);
+}catch(ClassNotFoundException e)
+{
+  e.printStackTrace();
+}
+
+Connection conn=null;
+Statement statement=null;
+ResultSet resultset=null;
+%>
+
+<html>
+<body>
+<table>
+<% 
+try{
+conn=DriverManager.getConnection(connURL+database,userId,password);
+statement=conn.createStatement();
+String sql="select pol_name,pol_party from SmartLockdown";
+resultset=staement.executeQuery(sql);
+%>
+<tr>
+<th>Politician Name</th>
+<th>Politician Current Party Name</th>
+</tr>
+<%= while(resultset.next()){ %>
+<tr>
+<td><%= resultset.getString("pol_name"); %><td>
+<td><%= resultset.getString("pol_party"); %><td>
+</tr>
+<%
+}
+conn.close();
+}catch(Exception e)
+{  e.printStackTrace();}
+%>
+</table>
+</body>
+</html>

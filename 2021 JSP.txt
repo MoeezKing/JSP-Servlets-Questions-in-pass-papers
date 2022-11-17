@@ -1,0 +1,70 @@
+<%@ page import="java.sql.DriverManager"%>
+<%@ page import="java.sql.Connection"%>
+<%@ page import="java.sql.Statement"%>
+<%@ page import="java.sql.ResultSet"%>
+<%
+
+String Driver="com.mysql.jdbc.Driver";
+String connURL="jdbc:mysql://localhost:3306/";
+// * 4 header files <% @ page import="headerfile" %>
+//<% @ page import="java.sql.* " %>
+
+<% @ page import="java.sql.DriverManager" %>
+<% @ page import="java.sql.Connection" %>
+<% @ page import="java.sql.Statement" %>
+<% @ page import="java,sql.ResultSet" %>
+
+// * 5 string varible ,definiing class
+<%
+String driver="com.mysql.jdbc.Driver";
+String connectionURL="jdbc:mysql://localhost:3306/";
+String database="Database";
+String userId="root";
+String password="";
+
+// loading driver
+try{
+    Class.forName(driver);
+}catch(ClassNotFoundException e)
+{ e.printStackTrace();  }
+
+// * 3 ojects set to null
+Connection connection =null;
+Statement statement=null;
+ResultSet resultset=null;
+
+%>
+<html>
+    <body>
+        <table>
+            <tr>
+                <th>Area Name</th>
+                <th>City Name</th>
+                <th>Number of patients</th>
+                <th>Number of days</th>
+            </tr>
+<%
+try{
+connection=DriverManager.getConnection(connectionURL + database ,userId,password);
+statement=connection.createStatement();
+String query="select area_name ,city_name,no_of_patients,no_of_days from SmartLockdown";
+resultset=statement.executeQuery(query);
+
+while(resultset.next())
+{
+%>
+        <tr>
+            <td><%= resultset.getString("area_name")  %>  </td>
+            <td><%= resultset.getString("city_name")  %>  </td>
+            <td><%= resultset.getInt("no_of_patients") %>  </td>
+            <td><%= resultset.getInt("no_of_days")  %> </td>
+        </tr> 
+<%
+    }
+  connection.close();   
+} catch(Exception e)
+{ e.printStackTrace();}
+%>
+        </table>
+    </body>
+</html>
