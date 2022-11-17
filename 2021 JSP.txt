@@ -1,18 +1,20 @@
-<%@ page import="java.sql.DriverManager"%>
-<%@ page import="java.sql.Connection"%>
-<%@ page import="java.sql.Statement"%>
-<%@ page import="java.sql.ResultSet"%>
-<%
-
-String Driver="com.mysql.jdbc.Driver";
-String connURL="jdbc:mysql://localhost:3306/";
-// * 4 header files <% @ page import="headerfile" %>
-//<% @ page import="java.sql.* " %>
+// * 4 header files
 
 <% @ page import="java.sql.DriverManager" %>
 <% @ page import="java.sql.Connection" %>
 <% @ page import="java.sql.Statement" %>
 <% @ page import="java,sql.ResultSet" %>
+
+
+<html>
+    <body>
+        <table>
+            <tr>
+                <th>Area Name</th>
+                <th>City Name</th>
+                <th>Number of patients</th>
+                <th>Number of days</th>
+            </tr>
 
 // * 5 string varible ,definiing class
 <%
@@ -33,17 +35,6 @@ Connection connection =null;
 Statement statement=null;
 ResultSet resultset=null;
 
-%>
-<html>
-    <body>
-        <table>
-            <tr>
-                <th>Area Name</th>
-                <th>City Name</th>
-                <th>Number of patients</th>
-                <th>Number of days</th>
-            </tr>
-<%
 try{
 connection=DriverManager.getConnection(connectionURL + database ,userId,password);
 statement=connection.createStatement();
