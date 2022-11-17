@@ -2,26 +2,28 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+
+
+<html>
+<body>
+	<select>
 <%
 String driver = "com.mysql.jdbc.Driver";
 String connectionUrl = "jdbc:mysql://localhost:3306/";
 String database = "Database";
 String userid = "root";
 String password = "";
+
 try {
 Class.forName(driver);
 } catch (ClassNotFoundException e) {
 e.printStackTrace();
 }
+
 Connection connection = null;
 Statement statement = null;
 ResultSet resultSet = null;
-%>
 
-<html>
-<body>
-	<select>
-<%
 try{
 connection = DriverManager.getConnection(connectionUrl+database, userid, password);
 statement=connection.createStatement();
