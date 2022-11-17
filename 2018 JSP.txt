@@ -2,8 +2,12 @@
 <%@ page import="java.sql.Connection"%>
 <%@ page import="java.sql.Statement"%>
 <%@ page import="java.sql.ResultSet"%>
-<%
 
+
+<html>
+<body>
+<table>
+<% 
 String Driver="com.mysql.jdbc.Driver";
 String connURL="jdbc:mysql://localhost:3306/";
 String database="Database";
@@ -20,12 +24,8 @@ Class.forName(driver);
 Connection conn=null;
 Statement statement=null;
 ResultSet resultset=null;
-%>
 
-<html>
-<body>
-<table>
-<% 
+
 try{
 conn=DriverManager.getConnection(connURL+database,userId,password);
 statement=conn.createStatement();
@@ -44,7 +44,7 @@ resultset=staement.executeQuery(sql);
 <%
 }
 conn.close();
-}catch(Exception e)
+}catch(SQLException e)
 {  e.printStackTrace();}
 %>
 </table>
